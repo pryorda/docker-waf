@@ -7,7 +7,8 @@ LABEL maintainer="Daniel Pryor <http://github.com/pryorda/>"
 COPY --from=pryorda/docker-waf-base:latest /usr/src/modsecurity/ /usr/src/modsecurity/
 COPY --from=pryorda/docker-waf-base:latest /usr/local/nginx/ /usr/local/nginx/
 
-RUN ln -s /usr/local/nginx/sbin/nginx /bin/nginx && \
+RUN adduser --disabled-password --system --home /var/cache/nginx --shell /sbin/nologin --group nginx && \ 
+        ln -s /usr/local/nginx/sbin/nginx /bin/nginx && \
 	cp /usr/src/modsecurity/unicode.mapping /usr/local/nginx/conf/ && \
 	mkdir -p /opt/modsecurity/var/audit/ && \
 	apt-get update && \
