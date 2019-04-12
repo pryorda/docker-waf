@@ -12,10 +12,11 @@ RUN ln -s /usr/local/nginx/sbin/nginx /bin/nginx && \
 	mkdir -p /opt/modsecurity/var/audit/ && \
 	apt-get update && \
 	apt-get install -y git libpcre3 libpcre3-dev libssl-dev libtool autoconf apache2-dev libxml2-dev libcurl4-openssl-dev && \
-	git clone -b ${OWASP_CRS_VERSION}} https://github.com/SpiderLabs/owasp-modsecurity-crs.git /usr/src/owasp-modsecurity-crs && \
+	git clone -b ${OWASP_CRS_VERSION} https://github.com/SpiderLabs/owasp-modsecurity-crs.git /usr/src/owasp-modsecurity-crs && \
 	cp -R /usr/src/owasp-modsecurity-crs/rules/ /usr/local/nginx/conf/  && \
 	mv /usr/local/nginx/conf/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example  /usr/local/nginx/conf/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf && \
 	mv /usr/local/nginx/conf/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example  /usr/local/nginx/conf/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf && \
+        mkdir -p /var/log/nginx/ && \
 	apt-get purge -y git && \
 	apt-get autoremove -y && \
         rm -rf /var/lib/apt/lists/*
