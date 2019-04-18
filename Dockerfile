@@ -28,8 +28,7 @@ COPY modsecurity.conf /usr/local/nginx/conf/modsecurity.conf
 COPY crs-setup.conf /usr/local/nginx/conf/rules/crs-setup.conf
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-  && ln -sf /dev/stderr /var/log/nginx/error.log \
-  && ln -sf /dev/stdout /var/log/modsec_audit.log
+  && ln -sf /dev/stderr /var/log/nginx/error.log 
 
 EXPOSE 80
 
