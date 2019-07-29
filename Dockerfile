@@ -17,6 +17,8 @@ RUN adduser --disabled-password --system --home /var/cache/nginx --shell /sbin/n
 	cp -R /usr/src/owasp-modsecurity-crs/rules/ /usr/local/nginx/conf/  && \
 	mv /usr/local/nginx/conf/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example  /usr/local/nginx/conf/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf && \
 	mv /usr/local/nginx/conf/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf.example  /usr/local/nginx/conf/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf && \
+        cp /usr/src/owasp-modsecurity-crs/crs-setup.conf.example /usr/local/nginx/conf/rules/crs-setup.conf
+	cp /usr/src/modsecurity/modsecurity.conf-recommended /usr/local/nginx/conf/modsecurity.conf
         mkdir -p /var/log/nginx/ && \
 	apt-get purge -y git && \
 	apt-get autoremove -y && \
@@ -24,8 +26,8 @@ RUN adduser --disabled-password --system --home /var/cache/nginx --shell /sbin/n
 
 COPY nginx.conf /usr/local/nginx/conf/nginx.conf
 COPY modsec_includes.conf /usr/local/nginx/conf/modsec_includes.conf
-COPY modsecurity.conf /usr/local/nginx/conf/modsecurity.conf
-COPY crs-setup.conf /usr/local/nginx/conf/rules/crs-setup.conf
+# COPY modsecurity.conf /usr/local/nginx/conf/modsecurity.conf
+# COPY crs-setup.conf /usr/local/nginx/conf/rules/crs-setup.conf
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
   && ln -sf /dev/stderr /var/log/nginx/error.log 
